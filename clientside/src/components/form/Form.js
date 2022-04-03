@@ -1,7 +1,9 @@
 import { Button, Paper, TextField, Typography } from "@material-ui/core";
 import FileBase from "react-file-base64";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import useStyles from "./styles";
+import { createPosts } from "../../actions/posts";
 
 const Form = () => {
   const [postData, setPostData] = useState({
@@ -13,7 +15,13 @@ const Form = () => {
   });
   const classes = useStyles();
 
-  const handleSumbit = () => {};
+  const dispatch = useDispatch();
+
+  const handleSumbit = (e) => {
+    e.preventDefault();
+
+    dispatch(createPosts(postData));
+  };
   const clear = () => {};
 
   return (

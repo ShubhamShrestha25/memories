@@ -1,9 +1,27 @@
 import React from "react";
 import useStyles from "./styles";
+import { ThumbUpAlt, Delete, MoreHoriz } from "@material-ui/icons";
+import { Card, CardMedia, Typography } from "@material-ui/core";
+import moment from "moment";
 
-const Post = () => {
+const Post = ({ post }) => {
   const classes = useStyles();
-  return <div>Post</div>;
+  return (
+    <Card className={classes.card}>
+      <CardMedia
+        className={classes.media}
+        image={post.selectedFile}
+        title={post.title}
+      />
+      <div className={classes.overlay}>
+        <Typography varient="h6">{post.creator}</Typography>
+        <Typography varient="body2">
+          {moment(post.createdAt).fromNow()}
+        </Typography>
+      </div>
+      <div className="classes.overlay2"></div>
+    </Card>
+  );
 };
 
 export default Post;
