@@ -14,7 +14,7 @@ app.use(cors());
 app.use("/posts", postRoutes);
 
 const COLLECTION_URL =
-  "mongodb+srv://shubham25:nepal123@cluster0.owhdm.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+  "mongodb+srv://shubham25:nepal123@cluster0.g0ooa.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 const PORT = process.env.PORT || 8000;
 
 mongoose

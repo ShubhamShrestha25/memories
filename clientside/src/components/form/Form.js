@@ -3,9 +3,9 @@ import FileBase from "react-file-base64";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import useStyles from "./styles";
-import { createPosts } from "../../actions/posts";
+import { createPosts, updatePost } from "../../actions/posts";
 
-const Form = () => {
+const Form = ({ currentId, setCurrentId }) => {
   const [postData, setPostData] = useState({
     creator: "",
     title: "",
@@ -20,7 +20,11 @@ const Form = () => {
   const handleSumbit = (e) => {
     e.preventDefault();
 
-    dispatch(createPosts(postData));
+    if (currentId) {
+      dispatch(updatePost(currentId, postData));
+    } else {
+      dispatch(createPosts(postData));
+    }
   };
   const clear = () => {};
 
