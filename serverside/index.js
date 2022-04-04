@@ -15,7 +15,7 @@ app.use("/posts", postRoutes);
 
 const COLLECTION_URL =
   "mongodb+srv://shubham25:nepal123@cluster0.g0ooa.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 8001;
 
 mongoose
   .connect(COLLECTION_URL, {

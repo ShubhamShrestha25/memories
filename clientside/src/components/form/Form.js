@@ -1,7 +1,8 @@
 import { Button, Paper, TextField, Typography } from "@material-ui/core";
 import FileBase from "react-file-base64";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import useStyles from "./styles";
 import { createPosts, updatePost } from "../../actions/posts";
 
@@ -14,10 +15,18 @@ const Form = ({ currentId, setCurrentId }) => {
     selectedFile: "",
   });
   const classes = useStyles();
-
+  const post = useSelector((state) =>
+    currentId ? state.posts.find((p) => p._id === currentId) : null
+  );
   const dispatch = useDispatch();
 
-  const handleSumbit = (e) => {
+  useEffect(() => {
+    if (post) {
+      setPostData(post);
+    }
+  }, [post]);
+
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     if (currentId) {
@@ -25,8 +34,18 @@ const Form = ({ currentId, setCurrentId }) => {
     } else {
       dispatch(createPosts(postData));
     }
+    clear();
   };
-  const clear = () => {};
+  const clear = () => {
+    setCurrentId(null);
+    setPostData({
+      creator: "",
+      title: "",
+      message: "",
+      tags: "",
+      selectedFile: "",
+    });
+  };
 
   return (
     <Paper className={classes.paper}>
@@ -34,9 +53,11 @@ const Form = ({ currentId, setCurrentId }) => {
         autoComplete="off"
         noValidate
         className={`${classes.root} ${classes.form}`}
-        onSubmit={handleSumbit}
+        onSubmit={handleSubmit}
       >
-        <Typography variant="h6">Creating a Memory</Typography>
+        <Typography variant="h6">
+          {currentId ? `Editing "${post.title}"` : "Creating a Memory"}
+        </Typography>
         <TextField
           name="creator"
           variant="outlined"
@@ -60,6 +81,8 @@ const Form = ({ currentId, setCurrentId }) => {
           variant="outlined"
           label="Message"
           fullWidth
+          multiline
+          rows={4}
           value={postData.message}
           onChange={(e) =>
             setPostData({ ...postData, message: e.target.value })
@@ -68,10 +91,12 @@ const Form = ({ currentId, setCurrentId }) => {
         <TextField
           name="tags"
           variant="outlined"
-          label="Tags"
+          label="Tags (coma separated)"
           fullWidth
           value={postData.tags}
-          onChange={(e) => setPostData({ ...postData, tags: e.target.value })}
+          onChange={(e) =>
+            setPostData({ ...postData, tags: e.target.value.split(",") })
+          }
         />
         <div className={classes.fileInput}>
           <FileBase
