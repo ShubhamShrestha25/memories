@@ -1,11 +1,11 @@
-import { Container, AppBar, Typography, Grow, Grid } from "@material-ui/core";
-import memories from "./images/memories.png";
+import { Container, Grow, Grid } from "@material-ui/core";
 import Form from "./components/form/Form";
 import { getPosts } from "./actions/posts";
 import Posts from "./components/posts/Posts";
 import useStyles from "./styles";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
+import Navbar from "./components/navbar/Navbar";
 
 function App() {
   const [currentId, setCurrentId] = useState(null);
@@ -18,17 +18,7 @@ function App() {
 
   return (
     <Container maxWidth="lg">
-      <AppBar className={classes.appBar} position="static" color="inherit">
-        <Typography className={classes.heading} variant="h2" align="center">
-          Memories
-        </Typography>
-        <img
-          className={classes.image}
-          src={memories}
-          alt="memories"
-          height="60"
-        />
-      </AppBar>
+      <Navbar />
       <Grow in>
         <Container>
           <Grid
