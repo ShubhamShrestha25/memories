@@ -16,7 +16,6 @@ import { deletePost, likePost } from "../../../actions/posts";
 const Post = ({ post, setCurrentId }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
-  console.log(post);
   return (
     <Card className={classes.card}>
       <CardMedia
