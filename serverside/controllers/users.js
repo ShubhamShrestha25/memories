@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 
 import User from "../models/user.js";
 
-export const singin = async (req, res) => {
+export const signin = async (req, res) => {
   const { email, password } = req.body;
   try {
     const existingUser = await User.findOne({ email });
@@ -31,7 +31,7 @@ export const singin = async (req, res) => {
   }
 };
 
-export const singup = async (req, res) => {
+export const signup = async (req, res) => {
   const { email, password, confirmPassword, firstName, lastName } = req.body;
   try {
     const existingUser = await User.findOne({ email });
